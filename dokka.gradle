@@ -61,7 +61,11 @@ afterEvaluate { project ->
         final String srcDirThree
         String links
         if (androidOs) {
-            srcDirsJavaNumber = (byte) ((android.sourceSets.main.java.srcDirs != null) ? android.sourceSets.main.java.srcDirs.size() : 0)
+            if (android.sourceSets.main.java.srcDirs == null) {
+                srcDirsJavaNumber = 0
+            } else {
+                srcDirsJavaNumber = (byte) android.sourceSets.main.java.srcDirs.size()
+            }
             srcDirsKotlinNumber = (byte) ((kotlinLanguage && (android.sourceSets.main.kotlin.srcDirs != null)) ? android.sourceSets.main.kotlin.srcDirs.size() : 0)
             classpathNumber = (byte) ((android.getBootClasspath() != null) ? android.getBootClasspath().size() : 0)
             classpath = (classpathNumber > 0) ? android.getBootClasspath()[0] : ''
