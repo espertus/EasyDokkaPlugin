@@ -52,7 +52,7 @@ afterEvaluate { project ->
 
     task easyDokka(type: Exec, dependsOn: easyDokkaInitializer) {
         description 'Generates the documentation by Dokka.'
-        final byte srcDirsJavaNumber
+        byte srcDirsJavaNumber = 0
         final byte srcDirsKotlinNumber
         final byte classpathNumber
         final String classpath
@@ -61,9 +61,7 @@ afterEvaluate { project ->
         final String srcDirThree
         String links
         if (androidOs) {
-            if (android.sourceSets.main.java.srcDirs == null) {
-                srcDirsJavaNumber = 0
-            } else {
+            if (android.sourceSets.main.java.srcDirs != null) {
                 srcDirsJavaNumber = (byte) android.sourceSets.main.java.srcDirs.size()
             }
             srcDirsKotlinNumber = (byte) ((kotlinLanguage && (android.sourceSets.main.kotlin.srcDirs != null)) ? android.sourceSets.main.kotlin.srcDirs.size() : 0)
